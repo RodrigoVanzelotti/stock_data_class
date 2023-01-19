@@ -7,7 +7,7 @@ import yfinance as yf
 3. É possível identificar qual o tipo da companhia através do mstf.info em "industry"
 '''
 
-msft = yf.Ticker("aapl")
+msft = yf.Ticker("ITUB4")
 msft.info
 hist = msft.history(period="max")
 msft.history_metadata
