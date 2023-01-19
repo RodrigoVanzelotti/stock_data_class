@@ -17,10 +17,10 @@ class Asimov_finance:
         df_list = pd.read_html(html, decimal=',', thousands='.')
         return df_list[0]
 
-    def get_inflation_rates(self):
-        url = 'https://www.infomoney.com.br/ferramentas/inflacao/'
-        html = r.get(url).content
-        df_list = pd.read_html(html)
+    # def get_inflation_rates(self):
+    #     url = 'https://www.infomoney.com.br/ferramentas/inflacao/'
+    #     html = r.get(url).content
+    #     df_list = pd.read_html(html)
 
     def get_ibovespa(self, period=None) -> pd.DataFrame:
         ibovespa = yf.Ticker("^BVSP")
@@ -35,10 +35,30 @@ class Asimov_finance:
         if hist.empty: 
             return self.get_symbol_object(ticker + ".SA")
         else:
-            return symbol_object
+            if hist.empty:
+                return None
+            else:
+                return symbol_object
+
+    def confirm_symbol(self, ticker_string):
+        symbol_object = self.get_symbol_object(ticker_string)
+
+        if symbol_object == None: return 0
+        else:
+            keys = ['sector', 'logo_url', 'website', 'currentPrice', 'shortName', 'symbol', 'exchange']
+            return {key: symbol_object.info[key] for key in keys}
+
+    def get_history_data(self, ticker) -> pd.DataFrame:
+        ticker = self.get_symbol_object(self, ticker)
+
+        if ticker == None: return 0
+        else:
+            ticker.history(start=self.start)
+            pass
 
 
 
-    
+
+
 
 

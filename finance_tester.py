@@ -1,0 +1,1 @@
+from yfinance_class import Asimov_finance
